@@ -25,37 +25,35 @@ fun login() {
 fun menuPrincipal(nomeUsuario: String) {
 
     while (true) {
-        println(
-            """
-            Escolha uma opção:
-            1 - Cadastrar Quartos
-            2 - Cadastrar Hóspedes
-            3 - Abastecimento de Automóveis
-            4 - Sair do Hotel
-            5 - Verificar Reservas
-            6 - Gerenciar Hóspedes
-            7 - Gerenciar Eventos
-            8 - Orçamento para Manutenção de Ar-Condicionados
-            """.trimIndent()
-        )
+    println(
+    """
+    Escolha uma opção:
+    1 - Cadastrar Quartos
+    2 - Cadastrar Hóspedes
+    3 - Abastecimento de Automóveis
+    4 - Sair do Hotel
+    5 - Verificar Reservas
+    6 - Gerenciar Hóspedes
+    7 - Gerenciar Eventos
+    8 - Orçamento para Manutenção de Ar-Condicionados
+    """.trimIndent() )
 
-        val opcao = readln().toIntOrNull()
+    val opcao = readln().toIntOrNull()
 
-        when (opcao) {
-            1 -> cadastrarQuartos(nomeUsuario)
-            2 -> cadastrarHospedes(nomeUsuario)
-            3 -> abastecerCarro(nomeUsuario)
-            4 -> {
-                println("\nObrigado por utilizar o sistema, até mais!")
-                return
-            }
-            5 -> mostrarQuartos()
-            6 -> gerenciarHospedes()
-            7 -> gerenciarEventos()
-            8 -> orcamentoManutencaoArCondicionado(nomeUsuario)
-            else -> println("\nOpção inválida.")
-        }
-    }
+    when (opcao) {
+    1 -> cadastrarQuartos(nomeUsuario)
+    2 -> cadastrarHospedes(nomeUsuario)
+    3 -> abastecerCarro(nomeUsuario)
+    4 -> {
+    println("\nObrigado por utilizar o sistema, até mais!")
+    return }
+    5 -> mostrarQuartos()
+    6 -> gerenciarHospedes()
+    7 -> gerenciarEventos()
+    8 -> orcamentoManutencaoArCondicionado(nomeUsuario)
+    else -> println("\nOpção inválida.")
+  }
+ }
 }
 
 val quartos = Array(20) { "livre" }
@@ -69,23 +67,21 @@ fun cadastrarQuartos(nomeUsuario: String) {
     var total: Double = 0.0
 
     while (true) {
-        print("\nQual o valor padrão da diária? ")
-        valorDiaria = readln().toDoubleOrNull() ?: continue
-        if (valorDiaria < 0) {
-            println("\nValor inválido, $nomeUsuario.")
-            continue
-        }
+    print("\nQual o valor padrão da diária? ")
+    valorDiaria = readln().toDoubleOrNull() ?: continue
+    if (valorDiaria < 0) {
+    println("\nValor inválido, $nomeUsuario.")
+    continue }
 
-        print("\nQuantas diárias serão necessárias? ")
-        dias = readln().toIntOrNull() ?: continue
-        if (dias < 1 || dias > 30) {
-            println("\nQuantidade de dias inválida, $nomeUsuario.")
-            continue
-        }
+    print("\nQuantas diárias serão necessárias? ")
+    dias = readln().toIntOrNull() ?: continue
+    if (dias < 1 || dias > 30) {
+    println("\nQuantidade de dias inválida, $nomeUsuario.")
+    continue }
 
-        total = valorDiaria * dias
-        println("\nO valor de $dias dias de hospedagem é de R$$total.")
-        break
+    total = valorDiaria * dias
+    println("\nO valor de $dias dias de hospedagem é de R$$total.")
+    break
     }
 
     print("\nInsira o nome do hóspede: ")
@@ -93,40 +89,41 @@ fun cadastrarQuartos(nomeUsuario: String) {
 
     while (true) {
 
-        print("\nQual o quarto para reserva? (1 - 20)? ")
-        val numeroQuarto = readln().toIntOrNull() ?: continue
+    print("\nQual o quarto para reserva? (1 - 20)? ")
+    val numeroQuarto = readln().toIntOrNull() ?: continue
 
-        if (numeroQuarto in 1..20) {
-            if (quartos[numeroQuarto - 1] == "ocupado") {
-                println("\nQuarto está ocupado. Escolha outro.")
-                mostrarQuartos()
-            } else {
-                println("\nQuarto Livre.")
-                print("\n$nomeUsuario, você confirma a hospedagem para $hospede por $dias dias para o quarto $numeroQuarto por R$$total? S/N: ")
-                val confirmacao = readln().uppercase()
+    if (numeroQuarto in 1..20) {
+    if (quartos[numeroQuarto - 1] == "ocupado") {
+    println("\nQuarto está ocupado. Escolha outro.")
+    mostrarQuartos()
+    } else {
+    println("\nQuarto Livre.")
+    print("\n$nomeUsuario, você confirma a hospedagem para $hospede por $dias dias para o quarto $numeroQuarto por R$$total? S/N: ")
+        
+    val confirmacao = readln().uppercase()
 
-                if (confirmacao == "S") {
-                    quartos[numeroQuarto - 1] = "ocupado"
-                    hospedes.add(Pair(hospede, numeroQuarto))
-                    println("\n$nomeUsuario, reserva efetuada para $hospede.")
-                } else {
-                    println("\nReserva cancelada.")
-                }
-                mostrarQuartos()
-                break
-            }
-        } else {
-            println("\nNúmero do quarto inválido. Escolha um número entre 1 e 20.")
-        }
+    if (confirmacao == "S") {
+    quartos[numeroQuarto - 1] = "ocupado"
+    hospedes.add(Pair(hospede, numeroQuarto))
+    println("\n$nomeUsuario, reserva efetuada para $hospede.")
+    } else {
+    println("\nReserva cancelada.") }
+                
+    mostrarQuartos()
+    break
     }
+    } else {
+    println("\nNúmero do quarto inválido. Escolha um número entre 1 e 20.")
+  }
+ }
 }
 
 fun mostrarQuartos() {
 
     println("\nQuartos:")
     for (i in quartos.indices) {
-        println("${i + 1} - ${quartos[i]};")
-    }
+    println("${i + 1} - ${quartos[i]};")
+ }
 }
 
 fun cadastrarHospedes(nomeUsuario: String) {
@@ -141,16 +138,15 @@ fun gerenciarHospedes() {
 
     println("\nLista de hóspedes:")
     if (hospedes.isEmpty()) {
-        println("\nNenhum hóspede cadastrado.")
+    println("\nNenhum hóspede cadastrado.")
     } else {
-        hospedes.forEach { (nome, quarto) ->
-            if (quarto != -1) {
-                println("$nome - Quarto: $quarto")
-            } else {
-                println("$nome - Não está alocado em um quarto.")
-            }
-        }
-    }
+    hospedes.forEach { (nome, quarto) ->
+    if (quarto != -1) {
+    println("$nome - Quarto: $quarto")
+    } else {
+    println("$nome - Não está alocado em um quarto.") }
+  }
+ }
 }
 
 fun gerenciarEventos() {
